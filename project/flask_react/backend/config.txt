@@ -1,0 +1,5 @@
+[connector config]
+host = mysqldb
+user = root
+password = p@ssw0rd1
+database = pytcheck
