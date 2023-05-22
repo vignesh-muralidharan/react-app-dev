@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios, { formToJSON } from "axios";
+import axios from "axios";
 import './App.css';
 
 function App() {

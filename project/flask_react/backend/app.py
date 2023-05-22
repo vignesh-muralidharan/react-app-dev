@@ -69,8 +69,9 @@ def add_values():
 
 @app.route('/acceptData', methods = ['POST'])
 def get_details():
-	_name = request.get.data('name')
-	_descript = request.get.data('description')
+	content = json.loads(request.data)
+	_name = content["name"]
+	_descript = content['description']
 	con = mysql.connector.connect(host=chost,user=cuser,password=cpasswd,database = cdatabase)
 	cursor = con.cursor()
 	cursor.execute("INSERT INTO widgets VALUES('{}','{}');".format(_name,_descript))
