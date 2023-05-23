@@ -4,7 +4,8 @@ all: prepare
 prepare: prepareDB prepareRest
 	@docker pull cryonicstrider/flask-react:v1
 	@docker tag cryonicstrider/flask-react:v1 cryonicstrider/flask-react:latest
-	@docker run --rm -d --name frontend-app -p 3000:3000 cryonicstrider/flask-react:latest
+	@docker stop frontend-app || true
+	@docker run --rm -d --network mysqlnet --name frontend-app -p 3000:3000 cryonicstrider/flask-react:latest
 
 prepareDB:
 	@docker volume create mysql || True
