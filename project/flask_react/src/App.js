@@ -65,8 +65,6 @@ function App() {
 		}	
 	</table>
 	<button onClick={clearDB}>Clear DB</button>
-	</header>
-    <p>
 	<p>To add values to the database: </p>
 
 	<form name="getinfo" method='POST'>
@@ -88,7 +86,7 @@ function App() {
 	/><br/></label>
 	</form>
 	<button onClick={handleSubmit}>Submit</button>
-	</p>
+	</header>
 	</div>
   );
 }
