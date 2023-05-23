@@ -22,13 +22,6 @@ function App() {
 			console.log(error.response.headers)
 		}
 })}
-
-  function addData(){
-	axios({
-		method: "GET",
-		url: "/addvalues"
-	})
-  }
   function clearDB(){
 	axios({
 		method: "GET",
@@ -71,12 +64,10 @@ function App() {
 		))
 		}	
 	</table>
-
-	<p> To add more values to the details: </p>
-	<button onClick={addData}>Add Data</button>
-    <p>To clear the values from the database: </p>
 	<button onClick={clearDB}>Clear DB</button>
-	<p>To add Custom Values to the database: </p>
+	</header>
+    <p>
+	<p>To add values to the database: </p>
 
 	<form name="getinfo" method='POST'>
 	<label>Name:
@@ -92,13 +83,13 @@ function App() {
 	<textarea
 		name = 'desc'
 		rows="2"
-		cols="60"
+		cols="25"
 		onChange={handleDescChange}
 	/><br/></label>
 	</form>
 	<button onClick={handleSubmit}>Submit</button>
-	</header>
-    </div>
+	</p>
+	</div>
   );
 }
 

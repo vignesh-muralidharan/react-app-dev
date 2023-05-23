@@ -69,7 +69,7 @@ def add_values():
 
 @app.route('/acceptData', methods = ['POST'])
 def get_details():
-	content = json.loads(request.data)
+	content = request.json
 	_name = content["name"]
 	_descript = content['description']
 	con = mysql.connector.connect(host=chost,user=cuser,password=cpasswd,database = cdatabase)
