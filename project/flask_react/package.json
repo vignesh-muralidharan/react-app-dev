@@ -1,8 +1,8 @@
 {
   "name": "flask_react",
   "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:8000",
+  "private": false,
+  "proxy" : "http://rest-server-wcon:5000",
 
 "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
