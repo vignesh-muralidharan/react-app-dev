@@ -2,8 +2,8 @@ all: prepare
 # test clean package install
 
 prepare: prepareDB prepareRest
-	@docker pull cryonicstrider/flask-react:v3
-	@docker tag cryonicstrider/flask-react:v3 cryonicstrider/flask-react:latest
+	@docker pull cryonicstrider/flask-react:v4
+	@docker tag cryonicstrider/flask-react:v4 cryonicstrider/flask-react:latest
 	@docker stop frontend-app || true
 	@docker run --rm -d --network mysqlnet --name frontend-app -p 3000:3000 cryonicstrider/flask-react:latest
 
