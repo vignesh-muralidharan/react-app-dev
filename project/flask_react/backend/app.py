@@ -1,19 +1,19 @@
 from flask import Flask, request
-import mysql.connector
+import mysql.connector as conec
 import json
+import os
 import configparser
 
 configfile = r'./config.txt'
+app = Flask(__name__)
 
 configParser = configparser.RawConfigParser()
 configParser.read(configfile)
 conecsection = 'connector config'
-chost = configParser.get(conecsection, 'host')
-cuser = configParser.get(conecsection, 'user')
 cpasswd = configParser.get(conecsection, 'password')
-cdatabase = configParser.get(conecsection, 'database')
+cdb = configParser.get(conecsection, 'database')
+chost = configParser.get(conecsection, 'host')
 
-app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
@@ -21,7 +21,7 @@ def hello_world():
 
 @app.route('/widgets')
 def get_widgets():
-	mydb = mysql.connector.connect(host=chost, user=cuser,password=cpasswd, database=cdatabase)
+	mydb = conec.connect(host=chost, database = cdb, user = 'root', password=cpasswd)
 	cursor = mydb.cursor()
 	cursor.execute("SELECT * FROM widgets;")
 
@@ -35,18 +35,20 @@ def get_widgets():
 
 @app.route('/initdb')
 def db_init():
-	mydb = mysql.connector.connect(host=chost, user=cuser,password=cpasswd)
+	mydb = conec.connect(host=chost, user = 'root', password=cpasswd)
 	cursor = mydb.cursor()
 
 	cursor.execute("CREATE DATABASE IF NOT EXISTS pytcheck;")
-	mydb= mysql.connector.connect(host=chost, user=cuser,password=cpasswd, database=cdatabase)
+	mydb= conec.connect(host=chost, database = cdb, user = 'root', password=cpasswd)
 	cursor = mydb.cursor()
 	cursor.execute("CREATE TABLE IF NOT EXISTS widgets(name VARCHAR (255), description VARCHAR(255));")
 	mydb.commit()
 	return 'init database'
+
+
 @app.route('/cleardb')
 def db_clear():
-        db = mysql.connector.connect(host=chost, user=cuser,password=cpasswd, database = cdatabase)
+        db = conec.connect(host=chost, database = cdb, user = 'root', password=cpasswd)
         cursor = db.cursor()
 
         cursor.execute("DROP TABLE widgets;")
@@ -56,7 +58,7 @@ def db_clear():
 
 @app.route('/addvalues')
 def add_values():
-	db = mysql.connector.connect(host=chost, user=cuser,password=cpasswd, database = cdatabase)
+	db = conec.connect(host=chost, database = cdb, user = 'root', password=cpasswd)
 	cursor = db.cursor()
 	#http post query
 	cursor.execute("SELECT * from widgets;")
@@ -72,7 +74,7 @@ def get_details():
 	content = request.json
 	_name = content["name"]
 	_descript = content['description']
-	con = mysql.connector.connect(host=chost,user=cuser,password=cpasswd,database = cdatabase)
+	con = conec.connect(host=chost, database = cdb, user = 'root', password=cpasswd)
 	cursor = con.cursor()
 	cursor.execute("INSERT INTO widgets VALUES('{}','{}');".format(_name,_descript))
 	con.commit()
@@ -80,5 +82,5 @@ def get_details():
 
 
 if __name__ == "__main__":
-	app.run(host = '0.0.0.0', port = 8000)
+	app.run(host = '0.0.0.0')
 

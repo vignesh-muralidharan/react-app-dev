@@ -40,6 +40,8 @@ function App() {
   }
   function handleSubmit(){
 	sendData()
+	setnameTemp("")
+	setdescTemp("")
   }
   function handleNameChange(event){
 	setnameTemp(event.target.value);
@@ -51,10 +53,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-	<p>To get your database details: </p>
+	<p>To get the stored names: </p>
 	<button onClick={getData}>Click me!</button>
 	<table>
-		<th>Name</th><th>Description</th>
+		<th>First Name</th><th>Last Name</th>
 		{jsonData.map((item) => (
 			<tr key ={item.name}>
 				{Object.values(item).map((val) => (
@@ -65,19 +67,19 @@ function App() {
 		}	
 	</table>
 	<button onClick={clearDB}>Clear DB</button>
-	<p>To add values to the database: </p>
+	<p>To add names to the storage: </p>
 
 	<form name="getinfo" method='POST'>
-	<label>Name:
+	<label>First Name:
 	<textarea
         type="text"
         id="name"
-        name="name"
+        name="firstname"
 		cols="25"
         onChange={handleNameChange}
 
     /><br/></label>
-	<label>Description:	
+	<label>Last Name:
 	<textarea
 		name = 'desc'
 		rows="2"
