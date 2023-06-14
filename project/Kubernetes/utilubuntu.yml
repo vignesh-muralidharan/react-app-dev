@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: utilubuntu
+  labels:
+    app: uu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uu
+  template:
+    metadata:
+      labels:
+        app: uu
+    spec:
+      containers:
+        - name: utilubuntuval
+          command: [ "sleep" ]
+          args: [ "86400" ]
+          image: cryonicstrider/utilubuntu
+          imagePullPolicy: IfNotPresent 

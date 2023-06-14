@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactflask-kube
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      apd: web
+  template:
+    metadata:
+      labels:
+        apd: web
+    spec:
+      containers:
+        - name: frontend-app
+          image: cryonicstrider/flask-react:v4
+          imagePullPolicy: IfNotPresent
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-sql-kube
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    apd: web
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30001
