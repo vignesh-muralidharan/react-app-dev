@@ -13,9 +13,5 @@
 
 > - Working post function for custom input
 > - Containerizing of the npm app; to run on docker
-
-
-### TO BE DONE
-
 > - kubernetes test functions in another make - style file. for automated testing
 
